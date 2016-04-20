@@ -179,7 +179,7 @@ func main() {
 	for _, v := range checksumList {
 		fmt.Println(v)
 	}
-	fmt.Printf("Space freed will be about %s.\n", humanize.Bytes(uint64(spaceFreed)))
+	fmt.Printf("Space freed will be about %s (%s).\n", humanize.Bytes(uint64(spaceFreed)), humanize.IBytes(uint64(spaceFreed)))
 
 	if !dryrun {
 		fmt.Println("No dry-run. Proceeding to filesystem modifications.")
@@ -203,6 +203,6 @@ func main() {
 				}
 			}
 		}
-		fmt.Printf("Space freed is about %s.\n", humanize.Bytes(uint64(spaceFreed)))
+		fmt.Printf("Space freed is about %s (%s).\n", humanize.Bytes(uint64(spaceFreed)), humanize.IBytes(uint64(spaceFreed)))
 	}
 }
