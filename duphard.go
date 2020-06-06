@@ -1,5 +1,5 @@
 //
-// Copyright 2015 Marios Andreopoulos
+// Copyright 2015-2020 Marios Andreopoulos
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -56,7 +56,10 @@ func main() {
 	// check is used for the filepathWalk function
 	// if it finds a regular file, it adds it to sizeList
 	check := func(path string, f os.FileInfo, err error) error {
-		if f, err := os.Stat(path); err == nil { // catch all erros, not only IsNotExist
+		if f, err := os.Lstat(path); err == nil { // catch all erros, not only IsNotExist
+			if f.Mode()&os.ModeSymlink == os.ModeSymlink { // Let's not process symlinks
+				return nil
+			}
 			if f.Mode().IsRegular() {
 				if _, exists := sizeList[f.Size()]; !exists {
 					sizeList[f.Size()] = make(map[string]bool)
